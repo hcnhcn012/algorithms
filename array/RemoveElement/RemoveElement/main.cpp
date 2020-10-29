@@ -14,7 +14,7 @@ int removeElement(vector<int>& nums, int val);
 int main(int argc, const char * argv[])
 {
     vector<int> v = {0,1,2,2,3,0,4,2};
-    int len = removeElement(v, 3);
+    int len = removeElement(v, 2);
     for (int i=0; i<v.size(); i++)
     {
         cout << v[i] << ' ';
