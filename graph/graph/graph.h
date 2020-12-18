@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <list>
-#include <array>
+#include <vector>
 
 #define MAX_NODES 50
 
@@ -20,14 +20,14 @@ class graph
 {
 private:
     int nnodes;
-    /* using array and list from STL as a adjacency list */
-    std::array<std::list<int>, MAX_NODES> __adj_list;
+    /* using a vector of lists from STL as a adjacency list */
+    std::vector<std::list<int>> __adj_list;
     
 public:
     graph(int _nnodes);
     
     void add_edge(int node1_idx, int node2_idx);
-    const std::array<std::list<int>, MAX_NODES>& get_adj() const;
+    const std::vector<std::list<int>>& get_adj() const;
     int get_nnodes() const;
 };
 

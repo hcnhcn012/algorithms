@@ -8,7 +8,6 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include <array>
 #include "../graph/graph.h"
 
 void bfs(graph &g, int src, int dest);
@@ -36,17 +35,24 @@ void bfs(graph &g, int src, int dest)
     /* First create a queue and a vector
      * restoring paths and visited nodes
      */
-    std::array<std::list<int>, MAX_NODES> adj = g.get_adj();
-    std::queue<std::vector<int>> q;
+    std::vector<std::list<int>> adj = g.get_adj();
+    std::list<int>::iterator it;
+    std::queue<std::vector<int> > q;
+    int nnodes = g.get_nnodes();
+    std::vector<bool> visited = std::vector<bool> (nnodes, false);
+    
     /* add first path */
-    std::vector<int> init_path = std::vector<int> (1);
+    std::vector<int> init_path = std::vector<int> ();
+    visited[src] = true;
     init_path.push_back(src);
     q.push(init_path);
-    while (!q.empty())
+    
+    while(!q.empty())
     {
-        std::vector<int> path = q.front();
+        std::vector<int> path = std::vector<int> (q.front());
         q.pop();
         int last = path[path.size()-1];
+        visited[last] = true;
         /* search paths in adjacent list
          * if last is the distnation, print the path out
          */
@@ -58,11 +64,16 @@ void bfs(graph &g, int src, int dest)
             }
             std::cout << std::endl;
         }
-        std::list<int>::iterator it;
-        for (it=adj[last].begin(); it!=adj[last].end(); it++)
+        
+        it = adj[last].begin();
+        for (; it!=adj[last].end(); ++it)
         {
-            std::vector<int> new_path = std::vector<int> (path);
-            new_path.push_back(*it);
+            if (visited[*it] == false)
+            {
+                std::vector<int> new_path(path);
+                new_path.push_back(*it);
+                q.push(new_path);
+            }
         }
     }
 }
