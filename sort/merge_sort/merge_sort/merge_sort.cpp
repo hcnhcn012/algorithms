@@ -11,13 +11,13 @@
 using namespace std;
 
 void merge_sort(vector<int> &v, int left, int right);
-void smerge(vector<int> &v, vector<int> &v_temp, int left, int i, int right);
+void smerge(vector<int> &v, int left, int mid, int right);
 
 int main(int argc, const char * argv[])
 {
     vector<int> v = {6,5,4,2,1,3};
-    merge_sort(v, 0, 5);
-    for (int i=0; i<v.size()-1; i++)
+    merge_sort(v, 0, int(v.size())-1);
+    for (int i=0; i<v.size(); i++)
     {
         cout << v[i] << ' ';
     }
@@ -27,40 +27,39 @@ int main(int argc, const char * argv[])
 
 void merge_sort(vector<int> &v, int left, int right)
 {
-    if (left >= right)
+    if (left == right)
         return;
     
-    int i = (left + right) / 2;
-    merge_sort(v, i+1, right);
-    merge_sort(v, left, i);
-    vector<int> temp(v);
-    smerge(v, temp, left, i, right);
-    
-    for (int j=0; j<v.size(); j++)
-    {
-        v[j] = temp[j];
-    }
+    int mid = (left + right) / 2;
+    merge_sort(v, mid+1, right);
+    merge_sort(v, left, mid);
+    smerge(v, left, mid, right);
 }
 
-void smerge(vector<int> &v, vector<int> &v_temp, int left, int i, int right)
+void smerge(vector<int> &v, int left, int mid, int right)
 {
     int p, q, r;
     p = left;
-    q = i + 1;
-    r = 0;
-    for (; r<v.size(); r++)
+    q = mid + 1;
+    r = left;
+    vector<int> v_temp = vector<int>(v);
+    while(p <= mid && q <= right)
     {
         if (v[p] > v[q])
-        {
-            v_temp[r] = v[p];
-            q++;
-            continue;
-        }
-        else if (v[p] <= v[q])
-        {
-            v_temp[r] = v[q];
-            p++;
-            continue;
-        }
+            v_temp[r++] = v[q++];
+        else
+            v_temp[r++] = v[p++];
+    }
+    while (p <= mid)
+    {
+        v_temp[r++] = v[p++];
+    }
+    while (q <= right)
+    {
+        v_temp[r++] = v[q++];
+    }
+    for (int i=0; i<v.size(); i++)
+    {
+        v[i] = v_temp[i];
     }
 }
