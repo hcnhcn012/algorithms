@@ -59,7 +59,7 @@ void dfs(int src, int dest, vector<int> &result, vector<bool> &visited, list<int
         if (!visited[*it])
         {
             result[*it] = src;
-            visited[src] = true;
+            visited[*it] = true;
             dfs(*it, dest, result, visited, adj);
         }
     }
