@@ -35,7 +35,7 @@ void bfs(graph &g, int src, int dest)
     /* First create a queue and a vector
      * restoring paths and visited nodes
      */
-    std::vector<std::list<int>> adj = g.get_adj();
+    std::list<int> *adj = g.get_adj();
     std::list<int>::iterator it;
     std::queue<std::vector<int> > q;
     int nnodes = g.get_nnodes();

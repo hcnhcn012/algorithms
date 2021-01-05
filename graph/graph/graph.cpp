@@ -11,11 +11,15 @@
 graph::graph(int _nnodes)
 {
     this->nnodes = _nnodes;
-    this->__adj_list = std::vector<std::list<int>> (MAX_NODES);
-    for (int i=0; i<MAX_NODES; i++)
-    {
-        this->__adj_list[i] = std::list<int> ();
-    }
+    /* buggy decleration when using iterator of list object */
+//    this->__adj_list = std::vector<std::list<int>> (MAX_NODES);
+    /* fixed */
+    this->__adj_list = new std::list<int>[MAX_NODES]();
+}
+
+graph::~graph()
+{
+    delete [] this->__adj_list;
 }
 
 void graph::add_edge(int node1_idx, int node2_idx)
@@ -24,7 +28,14 @@ void graph::add_edge(int node1_idx, int node2_idx)
     this->__adj_list[node2_idx].push_back(node1_idx);
 }
 
-const std::vector<std::list<int>>& graph::get_adj() const
+/* buggy get_adj when using iterator of list object */
+//const std::vector<std::list<int>>& graph::get_adj() const
+//{
+//    return this->__adj_list;
+//}
+
+/* fixed */
+std::list<int> *graph::get_adj()
 {
     return this->__adj_list;
 }
