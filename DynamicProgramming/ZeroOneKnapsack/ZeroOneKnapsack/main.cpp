@@ -29,8 +29,8 @@ int knapsack(int capacity, vector<int> &items)
     /* matrix column: current bag contains weight */
     vector<vector<bool>> states = \
                 vector<vector<bool>>(items.size(), vector<bool>(capacity+1, false));
-    states[0][0] = 1;
-    states[0][1] = 1;
+    states[0][0] = true;
+    states[0][items[0]] = true;
     for (int i=1; i<items.size(); i++)
     {
         /* copy formal states */
@@ -42,7 +42,7 @@ int knapsack(int capacity, vector<int> &items)
         /* pack when free space is enough */
         for (int j=0; j<=capacity; j++)
         {
-            if (states[i][j] == true && j+items[i] <= capacity)
+            if (states[i-1][j] == true && j+items[i]<=capacity)
                 states[i][j+items[i]] = true;
         }
     }
