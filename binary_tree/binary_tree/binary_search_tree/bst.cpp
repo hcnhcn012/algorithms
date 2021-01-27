@@ -5,38 +5,31 @@
 //  Created by ChengnanHu on 11/23/20.
 //
 
-#include <iostream>
-#include <vector>
-#include "../binary_tree/bth.hpp"
+#include "./bst.hpp"
 
-Node * search(Node *root, int val);
-Node * find_previous(Node *root, int val);
-Node * insert(Node *root, Node *new_node);
-Node * remove(Node *root, int val);
-
-int main(int argc, const char * argv[])
-{
-    std::vector<int> v = {
-        33,
-        16,50,
-        13,18,34,58,
-        12,14,17,25,51,66,
-        15,19,27,55
-    };
-    Node root = Node(v[0]);
-    for (int i=1; i<v.size(); i++)
-    {
-        Node *n = new Node(v[i]);
-        insert(&root, n);
-    }
-    std::cout << "Current tree: " << std::endl;
-    print_t(&root);
-    std::cout << "Now delete Node 55" << std::endl;
-    //remove(&root, 13);
-    Node * new_root = remove(&root, 14);
-    //remove(&root, 55);
-    print_t(new_root);
-}
+//int main(int argc, const char * argv[])
+//{
+//    std::vector<int> v = {
+//        33,
+//        16,50,
+//        13,18,34,58,
+//        12,14,17,25,51,66,
+//        15,19,27,55
+//    };
+//    Node root = Node(v[0]);
+//    for (int i=1; i<v.size(); i++)
+//    {
+//        Node *n = new Node(v[i]);
+//        insert(&root, n);
+//    }
+//    std::cout << "Current tree: " << std::endl;
+//    print_t(&root);
+//    std::cout << "Now delete Node 55" << std::endl;
+//    //remove(&root, 13);
+//    Node * new_root = remove(&root, 14);
+//    //remove(&root, 55);
+//    print_t(new_root);
+//}
 
 Node * search(Node *root, int val)
 {
