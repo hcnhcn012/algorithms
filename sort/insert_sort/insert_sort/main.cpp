@@ -27,12 +27,10 @@ int main(int argc, const char * argv[])
 
 void insert_sort(vector<int> &v)
 {
-    int i = 1;
-    int insert;
-    for (; i<v.size(); i++)
+    for (int i=1; i<v.size(); i++)
     {
-        insert = v[i];
         int j = i - 1;
+        int insert = v[i];
         for (; j>=0; j--)
         {
             if (v[j] > insert)
