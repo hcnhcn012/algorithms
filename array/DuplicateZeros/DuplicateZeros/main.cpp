@@ -13,7 +13,8 @@ void duplicateZeros(vector<int>& a);
 int main(int argc, const char * argv[])
 {
     vector<int> v;
-    v = {1,2,0,0,3,0,1};
+    v = {8,4,5,0,0,0,0,7};
+    
     duplicateZeros(v);
     for (int i=0; i<v.size(); i++)
     {
@@ -23,17 +24,28 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
-void duplicateZeros(vector<int> &a)
+void duplicateZeros(vector<int> &arr)
 {
     int i = 0;
     int sh = 0;
-    for (i = 0; sh + i < a.size(); ++i)
-        sh += a[i] == 0;
-    for (i = i - 1; sh > 0; --i)
+    for (i=0; i<arr.size(); ++i)
+        sh += arr[i] == 0;
+    
+    for (int j=arr.size()-1; j>=0; j--)
     {
-        if (i + sh < a.size())
-            a[i + sh] = a[i];
-        if (a[i] == 0)
-            a[i + --sh] = a[i];
+        if (arr[j] != 0 && j+sh < arr.size())
+            arr[j+sh] = arr[j];
+
+        else if (arr[j] == 0)
+        {
+            if (j+sh < arr.size())
+                arr[j+sh] = arr[j];
+            
+            if (j+sh-1 < arr.size())
+                arr[j+--sh] = arr[j];
+            
+            else
+                sh--;
+        }
     }
 }
